@@ -7,29 +7,33 @@ class Solution {
         return false;
     }
     public int[] asteroidCollision(int[] asteroids) {
-      int n = asteroids.length;
-        Stack<Integer> st = new Stack<>();
-        for (int i = 0; i < n; i++) {
-            if (st.size() == 0 || (st.peek() < 0 && asteroids[i] > 0) || samesign(st.peek(), asteroids[i])) {
-                st.push(asteroids[i]);
-            } else {
-                while (st.size() > 0 && st.peek() > 0 && st.peek() < Math.abs(asteroids[i]))
-                    st.pop();
-
-                if (st.size() == 0 || st.peek() < 0) {
-                    st.push(asteroids[i]);
-                } else if (st.peek() == Math.abs(asteroids[i])) {
-                    st.pop();
+      if (asteroids == null) {
+            return new int[0];
+        }
+        Deque<Integer> stack = new ArrayDeque<>();
+        
+        for (int asteroid : asteroids) {
+            boolean flag = true;
+            while (!stack.isEmpty() && stack.peek() > 0 && asteroid < 0) {             
+                if (Math.abs(stack.peek()) < Math.abs(asteroid)) {
+                    stack.pop();
+                    continue;
+                } else if (Math.abs(stack.peek()) == Math.abs(asteroid)) {
+                    stack.pop();
                 }
+                flag = false;
+                break;
+            }
+
+            if (flag) {
+                stack.push(asteroid);
             }
         }
-        int[] ans = new int[st.size()];
-        int i = st.size() - 1;
-        while (!st.isEmpty()) {
-            ans[i] = st.peek();
-            i--;
-            st.pop();
+
+        int[] answer = new int[stack.size()];
+        for (int i = answer.length - 1; i >= 0; i--) {
+            answer[i] = stack.pop();
         }
-        return ans;
+        return answer;
     }
 }
