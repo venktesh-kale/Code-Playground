@@ -1,11 +1,5 @@
 class Solution {
-    public boolean samesign(int x, int y) {
-        if (x < 0 && y < 0)
-            return true;
-        else if (x > 0 && y > 0)
-            return true;
-        return false;
-    }
+    
     public int[] asteroidCollision(int[] asteroids) {
       if (asteroids == null) {
             return new int[0];
