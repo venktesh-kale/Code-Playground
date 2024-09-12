@@ -1,19 +1,19 @@
 class Solution {
     public String reverseWords(String s) {
-        Stack<String> st = new Stack <>(); 
-        String temp = "";
+        Stack<String> st = new Stack<>();
         String ans = "";
-        for (int i = 0; i< s.length(); i++){
+        String temp = "";
+
+        for(int i = 0; i< s.length(); i++){
             if(s.charAt(i) == ' '){
-                if(temp.length() > 0)
-                st.push(temp);
-                temp ="";
+                if(temp.length() > 0) 
+                    st.push(temp);
+                temp = "";
             }
             else{
                 temp = temp + s.charAt(i);
             }
         }
-
         ans = ans + temp;
 
         while(!st.isEmpty()){
